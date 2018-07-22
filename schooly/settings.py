@@ -129,11 +129,11 @@ WSGI_APPLICATION = 'schooly.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE':'django.db.backends.postgresql',
-        'NAME': '',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
+        'NAME': 'schoolyDB',
+        'USER': 'schoolyUser',
+        'PASSWORD': 'u{uE:c65HsBLx>sH',
+        'HOST': 'schoolydbinstance.crrhzdqmeizf.us-east-2.rds.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
