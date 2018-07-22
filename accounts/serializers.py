@@ -37,12 +37,13 @@ class CustomUserDetailsSerializer(UserDetailsSerializer):
     """
     class Meta:
         model = UserModel
-        fields = ('pk', 'email', 'first_name', 'last_name', 'date_of_birth',
+        fields = ('pk', 'email', 'username', 'first_name', 'last_name', 'date_of_birth',
                   'address_1', 'address_2', 'picture', 'telephone', 'post_code')
         read_only_fields = ('email',)
 
 class CustomRegisterSerializer(serializers.Serializer):
     email = serializers.EmailField(required=allauth_settings.EMAIL_REQUIRED)
+    username = serializers.CharField(max_length=128, required=True)
     password1 = serializers.CharField(write_only=True)
     password2 = serializers.CharField(write_only=True)
     first_name = serializers.CharField(
@@ -128,6 +129,7 @@ class CustomRegisterSerializer(serializers.Serializer):
         return {
             'password1': self.validated_data.get('password1', ''),
             'email': self.validated_data.get('email', ''),
+            'username': self.validated_data.get('username', ''),
             'first_name': self.validated_data.get('first_name', None),
             'last_name': self.validated_data.get('last_name', None),
             'date_of_birth': self.validated_data.get('date_of_birth', None),

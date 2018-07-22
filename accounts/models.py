@@ -19,7 +19,7 @@ def file_upload_to(instance, filename):
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, email, password, **extra_fields):
+    def create_user(self, username, password, email, **extra_fields):
         if not email:
             raise ValueError('Users must have an email address')
         try:
@@ -27,6 +27,7 @@ class UserManager(BaseUserManager):
         except Exception as ex:
             user = self.model(
                 email=self.normalize_email(email),
+                username = username,
                 last_login=timezone.now(),
                 **extra_fields
             )
@@ -35,9 +36,9 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, password, **extra_fields):
-
-        user = self.create_user(email, password=password, **extra_fields)
+    def create_superuser(self, username, password, **extra_fields):
+        email = 'admin@schooly.com'
+        user = self.create_user(username, password=password, email=email, **extra_fields)
         user.is_admin = True
         user.is_active = True
         user.is_verified = True
@@ -63,6 +64,7 @@ class User(AbstractBaseUser):
     post_code = models.CharField(max_length=255, null=True, blank=True)
     telephone = models.CharField(max_length=20, null=True, blank=True)
     email = models.EmailField(max_length=255, unique=True)
+    username = models.CharField(max_length=255, unique=True)
     picture = models.ImageField(upload_to=file_upload_to, null=True, blank=True, max_length=5000)
     is_verified = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
@@ -71,7 +73,7 @@ class User(AbstractBaseUser):
     updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
     objects = UserManager()
 
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = []
 
     class Meta:
@@ -84,10 +86,10 @@ class User(AbstractBaseUser):
 
     def get_short_name(self):
         # The user is identified by their email address
-        return self.email
+        return self.username
 
     def __str__(self):              # __unicode__ on Python 2
-        return self.email
+        return self.username
 
     def has_perm(self, perm, obj=None):
         "Does the user have a specific permission?"

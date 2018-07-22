@@ -37,13 +37,13 @@ INSTALLED_APPS = [
     # Added for testing facebook login, because it doesn't support HTTP anymore.
     # Only HTTPS is supported now
     # 'sslserver',
-    'accounts.apps.AccountsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'accounts',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
@@ -175,10 +175,10 @@ SITE_ID = 1
 
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_AUTHENTICATION_METHOD = "email"
-ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = "username"
+ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 4
-ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_USER_MODEL_USERNAME_FIELD = 'username'
 ACCOUNT_EMAIL_SUBJECT_PREFIX = 'Sportify '
 ACCOUNT_ADAPTER = 'accounts.adapter.CustomAccountAdapter'
 
