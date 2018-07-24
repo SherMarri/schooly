@@ -7,3 +7,4 @@ schooly/settings_local.py
 *.pyc
 *.pyo
 logs/
+static/
