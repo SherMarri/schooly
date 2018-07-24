@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.google',
+    'custom_admin',
 ]
 
 SOCIALACCOUNT_PROVIDERS = {
@@ -173,7 +174,7 @@ REST_USE_JWT = True
 
 SITE_ID = 1
 
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = "username"
 ACCOUNT_USERNAME_REQUIRED = True
